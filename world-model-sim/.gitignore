@@ -1,0 +1,7 @@
+# User-generated world models contain sensitive characterizations of real,
+# named people. Never commit them.
+*world_model*.md
+*world-model*.md
+
+# but DO keep the skill's own reference files
+!references/*.md
