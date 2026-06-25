@@ -55,6 +55,23 @@ Move through phases, but adapt: if the user dumps everything at once, parse it i
 
 Expanded versions with worked reasoning: [references/reasoning-principles.md](references/reasoning-principles.md).
 
+## Grounding in established research
+
+The board is the user's; the *patterns* often aren't unique to them. When a situation maps onto something with a real evidence base — negotiation, coalition-building, managing up, organizational design, conflict de-escalation, navigating reorgs — search the web for established research or well-vetted practitioner frameworks and fold the relevant findings into the analysis. Use this to sharpen a counterfactual or a synthesis, not to pad replies with generic listicle advice.
+
+When to reach for it:
+- A reasoning principle or open question turns on an empirical claim about how people behave (e.g. how reciprocity, status threat, or loss aversion shapes a likely reaction).
+- The user asks for best practices, or you're about to assert one as if it were settled.
+- A branch hinges on a tactic with a known literature (BATNA and negotiation, the "ally before you need them" coalition pattern, structured disagree-and-commit, etc.).
+
+How to do it well:
+- **Search before asserting.** If you're stating a "research shows" claim, look it up rather than reciting from memory — psychology especially is full of half-remembered, oversold results.
+- **Cite plainly and flag contestation.** Name the source and note where findings are replicated vs. shaky vs. contested. This extends principle 3 and the "Contested psychology" caution — Dunning–Kruger, ego depletion, power-posing, and many "primed behavior" results are disputed; present them as priors, not law.
+- **Translate to *their* board.** A finding is only useful once mapped onto the specific people and seams in the model. Don't leave it as a general truism — say what it predicts about *this* person or *this* move, and where the analogy might break.
+- **Stay grounded in the model.** Research informs; it never overrides what the user has observed about the actual individuals. When evidence and the user's read conflict, surface the tension rather than deferring to either by default.
+
+This is optional and on-demand — most turns won't need it. Skip it when the question is purely about the specific facts of the user's board.
+
 ## The artifact
 
 Create and maintain the model using the section template in [references/artifact-template.md](references/artifact-template.md). Top-level shape:
@@ -79,5 +96,5 @@ A synthetic end-to-end walkthrough is in [references/example-walkthrough.md](ref
 - **Single-source bias.** The whole model is one person's account. Keep inferences clearly inferential; resist hardening the user's reads into facts — including their reads about themselves.
 - **Don't weaponize.** The goal is the user navigating well and getting good outcomes, not manipulating or harming others. Steering ego-driven interactions toward better joint outcomes is fine; engineering someone's downfall, sabotage, or surveillance of specific people is not — decline if a session turns that way.
 - **Don't psychoanalyze with false confidence.** Speculation about others' inner states stays explicitly tentative.
-- **Contested psychology.** When invoking research, note where findings are contested rather than citing them as settled law.
+- **Contested psychology.** When invoking research (see "Grounding in established research"), note where findings are contested rather than citing them as settled law — and prefer searching the web over reciting half-remembered results.
 - **Privacy.** The artifact contains sensitive characterizations of named people. Write it to the working directory, keep it local, and remind the user not to share or commit it. A `.gitignore` ships with this skill that ignores `*world_model*.md`.
