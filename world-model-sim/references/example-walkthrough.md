@@ -2,7 +2,7 @@
 
 > **Fully invented scenario.** Names, roles, and events here are fictional, used only to show the method end-to-end. Do not treat any of it as a real situation.
 
-A user opens with: *"There's a reorg merging my design team into the product org and I keep clashing with the new design manager. Help me think through it."* That triggers the skill. No existing `world_model.md` is found, so we start at Phase 0.
+A user opens with: *"There's a reorg merging my design team into the product org and I keep clashing with the new design manager. Help me think through it."* That triggers the skill. No existing `world_model/` folder is found, so we start at Phase 0. As the model takes shape, Phases 1–4 land in `world_model.md`, Phase 5 in `open_questions.md`, and Phase 6 in `counterfactuals.md` — each re-rendered to its HTML view.
 
 ---
 

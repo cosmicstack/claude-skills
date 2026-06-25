@@ -11,18 +11,26 @@ You are a thinking partner: warm, direct, willing to disagree, no flattery. Not 
 
 ## FIRST ACTION, EVERY TIME: check for an existing model
 
-This skill is **stateful**. The state lives in a Markdown file (default `world_model.md`, or `<context>_world_model.md` for multiple contexts).
+This skill is **stateful**. The state lives in a **per-context folder** of Markdown files (default `world_model/`, or `<context>_world_model/` when the user tracks more than one environment). The folder holds three source documents that grow over time:
 
-Before anything else, look for an existing model file in the working directory.
+- `world_model.md` — structure, people, dynamics, and strategic synthesis (the board itself)
+- `open_questions.md` — the unknowns a counterfactual would turn on, plus a growing resolved log
+- `counterfactuals.md` — the simulated branches and developed scenarios
 
-- **If one exists:** read it, then orient the user in one or two lines — "here's where the model stands: N people, these open questions still unresolved" — and continue: add people, resolve open questions, update stances, or run counterfactuals. Make **surgical edits to named sections**, never full rewrites. Every session should leave the file richer.
-- **If none exists:** start the elicitation flow at Phase 0.
+The **Markdown files are the single source of truth.** They get surgical, section-level edits and are easy to diff and grow. Each one also has a rendered companion — a beautiful, self-contained HTML view (`world_model.html`, `open_questions.html`, `counterfactuals.html`) plus an `index.html` dashboard that links them. **HTML is a generated presentation layer, never edited by hand** — you regenerate it from the Markdown after a meaningful change (see "Rendering to HTML").
 
-The file is the single source of truth. Conversational replies summarize and extend it.
+Before anything else, look for an existing model folder in the working directory.
+
+- **If one exists:** read the three Markdown files, then orient the user in one or two lines — "here's where the model stands: N people, these open questions still unresolved, M branches simulated" — and continue: add people, resolve open questions, update stances, or run counterfactuals. Make **surgical edits to the named section in the right file**, never full rewrites. Every session should leave the model richer. After the edits, re-render the affected HTML view(s).
+- **If none exists:** start the elicitation flow at Phase 0. Create the folder and seed the three files as the model takes shape (you don't need all three populated on turn one — create each when its first content arrives).
+
+Conversational replies summarize and extend the files; the files are the durable record.
 
 ## The flow (phased, but flexible)
 
 Move through phases, but adapt: if the user dumps everything at once, parse it into the structure; if they trickle it, ask one focused question at a time. Don't interrogate — keep it conversational.
+
+**Where each phase lands:** Phases 1–4 write to `world_model.md`; Phase 5 writes to `open_questions.md`; Phase 6 writes to `counterfactuals.md`. Re-render the affected HTML view after the file changes.
 
 **Phase 0 — Frame the contract.** Confirm what you're building, and set the one framing rule up front: **separate what a person *does* (observable behavior) from *why* the user thinks they do it (inferred motive).** Tell them you'll mark this distinction throughout, because motive is where certainty is lowest and where counterfactuals most often turn. This is the skill's signature discipline.
 
@@ -72,9 +80,22 @@ How to do it well:
 
 This is optional and on-demand — most turns won't need it. Skip it when the question is purely about the specific facts of the user's board.
 
-## The artifact
+## The artifacts
 
-Create and maintain the model using the section template in [references/artifact-template.md](references/artifact-template.md). Top-level shape:
+The model is a **folder** of three Markdown source files plus their rendered HTML views and an index. Create and maintain it using the templates in [references/artifact-template.md](references/artifact-template.md). The folder:
+
+```
+<context>_world_model/         (default: world_model/)
+├── world_model.md             # §1 Structure, §2 People, §3 Dynamics, §4 Synthesis
+├── open_questions.md          # prioritized unknowns + ✅ Resolved log
+├── counterfactuals.md         # branch table + developed scenarios
+├── index.html                 # dashboard linking the three views (generated)
+├── world_model.html           # rendered view (generated)
+├── open_questions.html        # rendered view (generated)
+└── counterfactuals.html       # rendered view (generated)
+```
+
+`world_model.md` carries the reading-convention header and these sections:
 
 ```markdown
 # World Model — <context name>
@@ -85,11 +106,19 @@ Create and maintain the model using the section template in [references/artifact
 ## 2. People                   (per-person: [Observed] / [Inferred] / flags; user included)
 ## 3. Dynamics of Note         (reorgs, decision models, live proposals, action stances)
 ## 4. Strategic Synthesis      (structural seams, the keystone, what is NOT solved)
-## 5. Open Questions           (✅ Resolved subsection grows over time; prioritized)
-## 6. Counterfactual Branches  (table + developed scenarios)
 ```
 
+`open_questions.md` holds the prioritized unknowns and a growing `✅ Resolved` log. `counterfactuals.md` holds the branch table and developed, war-gamed scenarios. Full per-file structure and maintenance rules are in [references/artifact-template.md](references/artifact-template.md).
+
 A synthetic end-to-end walkthrough is in [references/example-walkthrough.md](references/example-walkthrough.md).
+
+## Rendering to HTML
+
+After a meaningful change to any Markdown file, **regenerate its HTML companion** (and `index.html` if the headline counts changed) so the user has a beautiful, shareable-with-themselves view. Treat the Markdown as source and the HTML as a derived build — never hand-edit the HTML, and never let it drift as the canonical state.
+
+Each HTML file is **self-contained** (inline CSS, no build step), prints well, and renders the model's semantics visually — the observed/inferred split as distinct badges, ⚠️/✅ as flag chips, the org chart as a monospace tree card, people as cards, synthesis as callouts, open questions split into open vs. resolved, and counterfactual branches as a comparison table plus scenario cards. The concrete template, CSS, and rendering rules are in [references/html-rendering.md](references/html-rendering.md). Follow it so views stay visually consistent across sessions.
+
+When you (re)generate the HTML, offer to open it — e.g. `open <context>_world_model/index.html` (macOS) — but don't auto-open on every turn; do it when the user would want to look.
 
 ## Cautions
 
@@ -97,4 +126,4 @@ A synthetic end-to-end walkthrough is in [references/example-walkthrough.md](ref
 - **Don't weaponize.** The goal is the user navigating well and getting good outcomes, not manipulating or harming others. Steering ego-driven interactions toward better joint outcomes is fine; engineering someone's downfall, sabotage, or surveillance of specific people is not — decline if a session turns that way.
 - **Don't psychoanalyze with false confidence.** Speculation about others' inner states stays explicitly tentative.
 - **Contested psychology.** When invoking research (see "Grounding in established research"), note where findings are contested rather than citing them as settled law — and prefer searching the web over reciting half-remembered results.
-- **Privacy.** The artifact contains sensitive characterizations of named people. Write it to the working directory, keep it local, and remind the user not to share or commit it. A `.gitignore` ships with this skill that ignores `*world_model*.md`.
+- **Privacy.** The folder contains sensitive characterizations of named people — in both the Markdown and the rendered HTML. Write it to the working directory, keep it local, and remind the user not to share or commit it. The HTML is candid too: it's for the user's own review, not for circulation. A `.gitignore` ships with this skill that ignores the whole `*world_model*/` folder (and the legacy flat `*world_model*.md` files); if the user is working inside another repo, offer to add the same ignore there.

@@ -4,11 +4,11 @@ A Claude skill for thinking through sociopolitical environments — workplaces, 
 
 ## What it does
 
-- Builds a Markdown **world model** of the people, teams, reporting lines, and dynamics around you.
+- Builds a **world model** of the people, teams, reporting lines, and dynamics around you — kept as a small folder of Markdown files (the board, your open questions, your simulated branches) and rendered into **beautiful, self-contained HTML views** you can read at a glance or print.
 - Keeps a disciplined split between what people **do** (observed) and **why** you think they do it (inferred) — because motive is where you're least certain and where scenarios turn.
 - Synthesizes the per-person detail into **structural seams**, a **keystone** (the highest-leverage relationship), and an honest list of what a given move *won't* fix.
 - Runs **counterfactual branches** and pressure-tests them against concrete, named interactions.
-- Is **stateful**: the model is a file you grow over weeks. Each session reads it, updates it surgically, and leaves it richer.
+- Is **stateful**: the model is a folder you grow over weeks. Each session reads it, updates it surgically, and leaves it richer — Markdown stays the source of truth, HTML is regenerated as the presentation layer.
 
 ## Install
 
@@ -34,11 +34,19 @@ Just describe the situation. Triggering phrasings include:
 
 You don't need to say "world model" or "counterfactual."
 
-The skill writes your model to `world_model.md` (or `<context>_world_model.md`) in the working directory.
+The skill writes your model to a `world_model/` folder (or `<context>_world_model/`) in the working directory:
+
+```
+world_model/
+├── world_model.md / .html      # structure, people, dynamics, synthesis
+├── open_questions.md / .html   # prioritized unknowns + resolved log
+├── counterfactuals.md / .html  # branch table + war-gamed scenarios
+└── index.html                  # dashboard linking the three views
+```
 
 ## Privacy
 
-Your model will contain candid, sensitive characterizations of real, named people. **Keep it local and private.** A `.gitignore` ships with this skill that excludes `*world_model*.md` so you can't accidentally commit one. Don't share the file.
+Your model will contain candid, sensitive characterizations of real, named people — in both the Markdown and the rendered HTML. **Keep it local and private.** A `.gitignore` ships with this skill that excludes the whole `*world_model*/` folder (and legacy flat `*world_model*.md` files) so you can't accidentally commit one. Don't share the files.
 
 ## Layout
 
@@ -46,9 +54,10 @@ Your model will contain candid, sensitive characterizations of real, named peopl
 world-model-sim/
 ├── SKILL.md                        # phased flow, principles, statefulness rules
 ├── README.md
-├── .gitignore                      # ignores generated *world_model*.md
+├── .gitignore                      # ignores the generated *world_model*/ folder
 └── references/
-    ├── artifact-template.md        # the world-model file structure
+    ├── artifact-template.md        # the three Markdown source files
+    ├── html-rendering.md           # the HTML views: CSS, components, rules
     ├── reasoning-principles.md     # the reasoning that makes it non-generic
     └── example-walkthrough.md      # a synthetic end-to-end session
 ```

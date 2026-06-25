@@ -1,7 +1,16 @@
 # User-generated world models contain sensitive characterizations of real,
-# named people. Never commit them.
+# named people — in both the source Markdown and the rendered HTML. Never commit
+# them. Each context lives in its own folder (e.g. world_model/ or
+# <context>_world_model/) holding the .md sources and the generated .html views.
+*world_model*/
+*world-model*/
+
+# legacy flat-file layout, and any stray rendered views
 *world_model*.md
 *world-model*.md
+*world_model*.html
+*world-model*.html
 
 # but DO keep the skill's own reference files
-!references/*.md
+!references/
+!references/**
